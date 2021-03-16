@@ -1,0 +1,38 @@
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<div>
+    {%if problem.statement %}
+    <div>
+        <h3> {{problem.statement}}</h3>
+    </div>
+    {%endif%}
+    <div id="cerinta">
+        <h1>Cerinta:</h1>
+        <h3> {{problem.demand}}</h3>
+    </div>
+    <div>
+        <h1>Date de intrare:</h1>
+        <h3> {{problem.input_data}}</h3>
+    </div>
+    <div>
+        <h1>Date de iesire:</h1>
+        <h3> {{problem.output_data}}</h3>
+    </div>
+    {%if problem.restrictions %}
+    <div>
+        <h1>Restrictii si precizari:</h1>
+        <h3> {{problem.restrictions}}</h3>
+    </div>
+    {%endif%}
+    <div>
+        <h1>Exemplu:</h1>
+        <h3>{{problem.example}}</h3>
+    <div>
+
+    <br><br><br>
+    <form action="{% url 'evaluator:submit' problem.id %}" method="post">
+        {% csrf_token %}
+        <input type="text" name="user-answer"><br>
+        <input type="submit" value="Verifica solutia">
+    </form>
+</div>

@@ -1,0 +1,9 @@
+{% if latest_problem_list %}
+    <ul>
+    {% for problem in latest_problem_list %}
+        <li><a href="{% url 'evaluator:detail' problem.id %}">{{ problem.demand }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No problems are available.</p>
+{% endif %}
