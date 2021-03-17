@@ -34,7 +34,7 @@ They run in the browser, meaning that security is not concern and the execution 
 
 [PyPyJS](https://github.com/pypyjs) - python 2.7, unmaintained, 12mb script import
 
-[Brythorn](https://brython.info/) - python 3.9.0, no imports, good idea
+[Brython](https://brython.info/) - python 3.9.0, no imports, good idea
 
 [Skulpt](http://skulpt.org/) - python 2.7, limited imports(?)
 
