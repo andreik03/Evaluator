@@ -41,3 +41,9 @@ They run in the browser, meaning that security is not concern and the execution 
 [Skulpt](http://skulpt.org/) - python 2.7, limited imports(?)
 
 [Anvil](https://anvil.works/) - python 2.7(?), website builder, pay to remove sponsor header
+
+## Conclusion
+Will maybe try Brythorn, and later switch to Docker.
+
+# Contributing
+Pull requests, ideas, anything is welcome.
