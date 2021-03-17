@@ -9,49 +9,35 @@ Back-end will use Django and for front-end React.
 For now, the goal is for the user to be able to run Python code.
 For now, I need to find a way to run the Python code from the user in a safe way.
 
-=============== Ideas for running Python safely ===============
+# Ideas for running Python safely
 
--- In-built functions --
+## In-built functions
 exec, eval: too unsafe, takes too much time to implement something decent
-------------------------
 
---Sandboxed --
+## Sandboxed
 Really good article of the options available for sandboxing:
 https://www.software.ac.uk/blog/2017-11-23-executing-python-code-submitted-web-service
 
 To check the realiability of the sandbox, check this:
 https://book.hacktricks.xyz/misc/basic-python/bypass-python-sandboxes
 
-Ideas:
+[pysandbox](https://github.com/vstinner/pysandbox) - deprecated
 
-pysandbox: deprecated, link - https://github.com/vstinner/pysandbox
+[PyPy sandbox](https://doc.pypy.org/en/latest/sandbox.html) - unmaintained
 
-PyPy sandbox: unmaintained, link - https://doc.pypy.org/en/latest/sandbox.html
+[Docker](https://www.docker.com/) - very good idea, hard to set up, could use multiple coding languages
 
-Docker: very good idea, hard to set up, could use multiple coding languages, link - https://www.docker.com/
+[epicbox](https://pypi.org/project/epicbox/) really good combination with Docker
 
-epicbox: really good combination with Docker, link - https://pypi.org/project/epicbox/
-
---------------
-
--- Python in the browser --
-Really good article about the options:
-https://anvil.works/blog/python-in-the-browser-talk
+## Python in the browser
+[Really good article about the available options](https://anvil.works/blog/python-in-the-browser-talk)
 
 They run in the browser, meaning that security is not concern and the execution is handled on the user's machine.
 
-Ideas:
+[PyPyJS](https://github.com/pypyjs) - python 2.7, unmaintained, 12mb script import
 
-PyPyJS - python 2.7, unmaintained, 12mb script import, link - https://github.com/pypyjs
+[Brythorn](https://brython.info/) - python 3.9.0, no imports, good idea
 
-Brythorn - python 3.9.0, no imports, good idea, link - https://brython.info/
+[Skulpt](http://skulpt.org/) - python 2.7, limited imports(?)
 
-Skulpt - python 2.7, limited imports(?), link - http://skulpt.org/
-
-Anvil - python 2.7(?), website builder, pay to remove sponsor header, link - https://anvil.works/
-
----------------------------
-
-===============================================================
-
-
+[Anvil](https://anvil.works/) - python 2.7(?), website builder, pay to remove sponsor header
