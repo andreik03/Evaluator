@@ -14,7 +14,7 @@ For now, I need to find a way to run the Python code from the user in a safe way
 ## In-built functions
 exec, eval: too unsafe, takes too much time to implement something decent
 
-## Sandboxed
+## Python sandboxed
 Really good article of the options available for sandboxing:
 https://www.software.ac.uk/blog/2017-11-23-executing-python-code-submitted-web-service
 
