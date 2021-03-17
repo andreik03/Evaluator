@@ -1,6 +1,6 @@
 # Evaluator
 
-The objective of this project is to create a website with computer science problems. (Reference: hackerrank.com, leetcode.com, pbinfo.ro, infoarena.ro)
+The objective of this project is to create a website with computer science problems. (Reference: [hackerrank](https://www.hackerrank.com/), [leetcode](https://leetcode.com/), [pbinfo](https://www.pbinfo.ro/), [infoarena](http://infoarena.ro/))
 The user must be able to run the code and display the output / error.
 When the user thinks that he has a correct solution, he must be able to publish his code and it will be analyzed, then displaying its correctness.
 Back-end will use Django and for front-end React.
