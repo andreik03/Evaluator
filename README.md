@@ -15,11 +15,9 @@ For now, I need to find a way to run the Python code from the user in a safe way
 exec, eval: too unsafe, takes too much time to implement something decent
 
 ## Python sandboxed
-Really good article of the options available for sandboxing:
-https://www.software.ac.uk/blog/2017-11-23-executing-python-code-submitted-web-service
+[Really good article of the options available for sandboxing](https://www.software.ac.uk/blog/2017-11-23-executing-python-code-submitted-web-service)
 
-To check the realiability of the sandbox, check this:
-https://book.hacktricks.xyz/misc/basic-python/bypass-python-sandboxes
+To check the realiability of the sandbox, check [this](https://book.hacktricks.xyz/misc/basic-python/bypass-python-sandboxes)
 
 [pysandbox](https://github.com/vstinner/pysandbox) - deprecated
 
