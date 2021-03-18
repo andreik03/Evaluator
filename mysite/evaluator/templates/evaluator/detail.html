@@ -151,7 +151,7 @@
                     }
                 });
                 {% for solution in problem.solution_set.all %}
-                    test = {{solution.test}};</script>
+                    test = {{solution.test}};
                     await runner.runCode(document.querySelector("#user-code").value);
                 {% endfor %}
                 console.log(data.answers)
