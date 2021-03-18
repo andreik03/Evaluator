@@ -40,5 +40,5 @@ def submit(request, problem_id):
         )
     else:
         print(correct_answers[1].answer)
-        print(request.POST["user-answer"])
+        print(request.POST["user-code"])
         return HttpResponseRedirect(reverse("evaluator:detail", args=(problem.id,)))

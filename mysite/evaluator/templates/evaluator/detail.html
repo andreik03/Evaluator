@@ -1,38 +1,161 @@
-{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+<head></head>
 
-<div>
-    {%if problem.statement %}
-    <div>
-        <h3> {{problem.statement}}</h3>
-    </div>
-    {%endif%}
-    <div id="cerinta">
-        <h1>Cerinta:</h1>
-        <h3> {{problem.demand}}</h3>
-    </div>
-    <div>
-        <h1>Date de intrare:</h1>
-        <h3> {{problem.input_data}}</h3>
-    </div>
-    <div>
-        <h1>Date de iesire:</h1>
-        <h3> {{problem.output_data}}</h3>
-    </div>
-    {%if problem.restrictions %}
-    <div>
-        <h1>Restrictii si precizari:</h1>
-        <h3> {{problem.restrictions}}</h3>
-    </div>
-    {%endif%}
-    <div>
-        <h1>Exemplu:</h1>
-        <h3>{{problem.example}}</h3>
-    <div>
+<body>
 
-    <br><br><br>
-    <form action="{% url 'evaluator:submit' problem.id %}" method="post">
-        {% csrf_token %}
-        <input type="text" name="user-answer"><br>
-        <input type="submit" value="Verifica solutia">
-    </form>
-</div>
+    {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+    <div>
+        {% if problem.statement %}
+        <div>
+            <h3> {{problem.statement}}</h3>
+        </div>
+        {% endif %}
+        <div id="cerinta">
+            <h1>Cerinta:</h1>
+            <h3> {{problem.demand}}</h3>
+        </div>
+        <div>
+            <h1>Date de intrare:</h1>
+            <h3> {{problem.input_data}}</h3>
+        </div>
+        <div>
+            <h1>Date de iesire:</h1>
+            <h3> {{problem.output_data}}</h3>
+        </div>
+        {% if problem.restrictions %}
+        <div>
+            <h1>Restrictii si precizari:</h1>
+            <h3> {{problem.restrictions}}</h3>
+        </div>
+        {% endif %}
+        <div>
+            <h1>Exemplu:</h1>
+            <h3>{{problem.example}}</h3>
+
+
+
+            <form action="{% url 'evaluator:submit' problem.id %}" method="post" style="display:flex" id="user-form">
+                {% csrf_token %}
+                <div>
+                    <textarea id="user-code" name="user-code" cols="50" rows="15" style="white-space: pre;"></textarea>
+                    <br>
+                    <button type="button" onclick="runPythonCode()">Run</button>
+                </div>
+                <div>
+                    <div id="user-output"
+                        style="background-color:gray; width: 333; height: 207; white-space: pre-wrap;">
+                    </div>
+                    <input type="text" name="user-input" id="user-input">
+                    <input type="button" onclick="sendInput()" name="send" id="send" value="Send">
+                    <input type="button" value="Check solution" onclick="checkPythonCode()">
+                </div>
+
+                <div>
+            </form>
+        </div>
+
+
+
+
+        <script src="https://cdn.jsdelivr.net/gh/pythonpad/brython-runner/lib/brython-runner.bundle.js"></script>
+        <script>
+            //tab indenting
+            const setTabIndent = () => {
+                document.querySelector("#user-code").addEventListener('keydown', function (e) {
+                    if (e.key == 'Tab') {
+                        e.preventDefault();
+                        var start = this.selectionStart;
+                        var end = this.selectionEnd;
+
+                        // set textarea value to: text before caret + tab + text after caret
+                        this.value = this.value.substring(0, start) +
+                            "    " + this.value.substring(end);
+
+                        // put caret at right position again
+                        this.selectionStart =
+                            this.selectionEnd = start + 4; // + 4 because of 4 space indent
+                    }
+                });
+            }
+
+            setTabIndent();
+
+            // code for waiting on Send button
+            // this is an async timeout util
+            const timeout = async ms => new Promise(res => setTimeout(res, ms));
+
+            let next = false; // this is to be changed on user input
+
+            const sendInput = () => next = true;
+
+            async function waitUserInput() {
+                while (next === false) await timeout(50); // pause script but avoid browser to freeze ;)
+                next = false; // reset var
+            }
+
+
+
+            const form = document.querySelector("#user-form");
+
+            async function runPythonCode() {
+                const runner = new BrythonRunner({
+                    stdout: {
+                        write(content) {
+                            document.querySelector("#user-output").innerHTML += content;
+                        },
+                        flush() {},
+                    },
+                    stderr: {
+                        write(content) {
+                            document.querySelector("#user-output").innerHTML += content;
+                        },
+                        flush() {},
+                    },
+                    stdin: {
+                        async readline() {
+                            await waitUserInput();
+                            let userInput = document.querySelector("#user-input").value;
+                            return userInput;
+                        },
+                    }
+                });
+
+                document.querySelector("#user-output").innerHTML = "";
+                await runner.runCode(document.querySelector("#user-code").value);
+            }
+
+            async function checkPythonCode() {
+                let data = {
+                    answers: []
+                };
+                let test = "";
+                const runner = new BrythonRunner({
+                    stdout: {
+                        write(content) {
+                            console.log(content);
+                            data.answers.push(content.trim());
+                        },
+                        flush() {},
+                    },
+                    stderr: {
+                        write(content) {
+                            data.answers.push(content);
+                        },
+                        flush() {},
+                    },
+                    stdin: {
+                        async readline() {
+                            let userInput = test;
+                            return userInput;
+                        },
+                    }
+                });
+                {% for solution in problem.solution_set.all %}
+                    test = {{solution.test}};</script>
+                    await runner.runCode(document.querySelector("#user-code").value);
+                {% endfor %}
+                console.log(data.answers)
+                //form.submit();
+            }
+        </script>
+</body>
