@@ -41,7 +41,7 @@ They run in the browser, meaning that security is not concern and the execution 
 [Anvil](https://anvil.works/) - python 2.7(?), website builder, pay to remove sponsor header
 
 ## Conclusion
-Will maybe try Brythorn, and later switch to Docker.
+Will maybe try Brython, and later switch to Docker.
 
 # Contributing
 Pull requests, ideas, anything is welcome.
