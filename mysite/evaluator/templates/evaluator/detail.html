@@ -33,11 +33,10 @@
             <h3>{{problem.example}}</h3>
 
 
-
+            {% csrf_token %}
             <form action="{% url 'evaluator:submit' problem.id %}" method="post" style="display:flex" id="user-form">
-                {% csrf_token %}
                 <div>
-                    <textarea id="user-code" name="user-code" cols="50" rows="15" style="white-space: pre;"></textarea>
+                    <textarea id="user-code" name="user-code" cols="50" rows="15" style="white-space: pre; max-width:30vh;"></textarea>
                     <br>
                     <button type="button" onclick="runPythonCode()">Run</button>
                 </div>
@@ -53,7 +52,6 @@
                 <div>
             </form>
         </div>
-
 
 
 
@@ -125,21 +123,19 @@
             }
 
             async function checkPythonCode() {
-                let data = {
-                    answers: []
-                };
+                let answers = []
                 let test = "";
                 const runner = new BrythonRunner({
                     stdout: {
                         write(content) {
                             console.log(content);
-                            data.answers.push(content.trim());
+                            answers.push(content.trim());
                         },
                         flush() {},
                     },
                     stderr: {
                         write(content) {
-                            data.answers.push(content);
+                            answers.push(content);
                         },
                         flush() {},
                     },
@@ -150,11 +146,9 @@
                         },
                     }
                 });
-                {% for solution in problem.solution_set.all %}
-                    test = {{solution.test}};
-                    await runner.runCode(document.querySelector("#user-code").value);
-                {% endfor %}
-                console.log(data.answers)
+                await runner.runCode(document.querySelector("#user-code").value);
+                // TODO: Handle the post method so it checks with the answers from the database
+                //$.get({% url 'evaluator:submit' problem.id %}, {answers: JSON.stringify(answers)})
                 //form.submit();
             }
         </script>

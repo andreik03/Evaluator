@@ -29,9 +29,11 @@ def answers(request, problem_id):
 
 
 def submit(request, problem_id):
+    # TODO: Fix POST
     problem = get_object_or_404(Problem, pk=problem_id)
     try:
-        correct_answers = problem.solution_set.all() # TODO: count(), [index]
+        print(request.POST.getlist[answers])
+        correct_answers = problem.solution_set.all()  # TODO: count(), [index]
     except (KeyError, Solution.DoesNotExist):
         return render(
             request,
