@@ -36,6 +36,8 @@ They run in the browser, meaning that security is not concern and the execution 
 
 [Brython](https://brython.info/) - python 3.9.0, no imports, good idea
 
+[Brython Runner](https://www.npmjs.com/package/brython-runner) - Brython module, great idea
+
 [Skulpt](http://skulpt.org/) - python 2.7, limited imports(?)
 
 [Anvil](https://anvil.works/) - python 2.7(?), website builder, pay to remove sponsor header
