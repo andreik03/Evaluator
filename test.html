@@ -1,0 +1,52 @@
+<head></head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/gh/pythonpad/brython-runner/lib/brython-runner.bundle.js"></script>
+    <script>
+        const files = {
+            'OUTPUT_PATH': {
+                'type': 'text',
+                'body': '',
+            },
+            'main.py': {
+                'type': 'text',
+                'body': "if __name__ == 'main.py':\n    fptr = open('OUTPUT_PATH', 'r+')\n    fptr.write('hello')\n    fptr.close()",
+                // if __name__ == 'main.py':\n fptr = open('OUTPUT_PATH', 'r+')\n n = int(input())\n    fptr.write(int(n*(n+1)/2))\n fptr.close()
+            }
+        };
+
+        async function runPythonCode() {
+
+            const runner = new BrythonRunner({
+                onFileUpdate(filename, data) {
+                    files[filename].type = data.type;
+                    files[filename].body = data.body;
+                },
+                stdout: {
+                    write(content) {
+                        console.log("stdout: " + content)
+                    },
+                    flush() {},
+                },
+                stderr: {
+                    write(content) {
+                        console.log("sterr: " + content)
+                    },
+                    flush() {},
+                },
+                stdin: {
+                    async readline() {
+
+                        return prompt("stdin: ");
+                    },
+                },
+            });
+
+            input = "10";
+            await runner.runCodeWithFiles(files['main.py'].body, files);
+            console.log(files["OUTPUT_PATH"].body);
+        }
+
+        runPythonCode();
+    </script>
+</body>

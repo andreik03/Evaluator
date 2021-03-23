@@ -25,6 +25,7 @@ const blankProblem: Problem = {
     restrictions: "",
     example: "",
     pub_date: new Date(Date.now()),
+    default_code: "",
 }
 
 const ProblemPage = (props: Props) => {
@@ -56,7 +57,7 @@ const ProblemPage = (props: Props) => {
                 </Grid>
                 <Grid item>
                     <Paper className={classes.problemcodeEditor}>
-                        <CodeEditor id={props.match.params.problemId}></CodeEditor>
+                        <CodeEditor problem={problem}></CodeEditor>
                     </Paper>
                 </Grid>
             </Grid>

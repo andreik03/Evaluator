@@ -13,6 +13,7 @@ class Problem(models.Model):
     restrictions = models.CharField(max_length=200, null=True, blank=True)
     example = models.CharField(max_length=200)
     pub_date = models.DateField("date published", default=timezone.now)
+    default_code = models.CharField(max_length=800, default="")
 
     def __str__(self):
         return self.demand

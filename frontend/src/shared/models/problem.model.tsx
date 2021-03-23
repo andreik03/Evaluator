@@ -8,4 +8,5 @@ export type Problem = {
     restrictions: string;
     example: string;
     pub_date: Date;
+    default_code:string;
 }

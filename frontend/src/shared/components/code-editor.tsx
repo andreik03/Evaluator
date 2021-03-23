@@ -5,11 +5,19 @@ import { Solution } from "../models/solution.model";
 import { useStyles } from "./styles/code-editor.styles";
 import ApiService from "../services/api-service";
 import React from "react";
+import { Problem } from "../models/problem.model";
 
 declare const BrythonRunner: any;
 
 type Props = {
-    id: number;
+    problem: Problem;
+}
+
+type FilesType = {
+    [index: string]: {
+        type: string;
+        body: string;
+    };
 }
 
 const CodeEditor = (props: Props) => {
@@ -23,6 +31,19 @@ const CodeEditor = (props: Props) => {
 
     let next = false; // this is to be changed on user input
 
+    let currentInput = "";
+
+    const files: FilesType = {
+        'OUTPUT_PATH': {
+            'type': 'text',
+            'body': '',
+        },
+        'main.py': {
+            'type': 'text',
+            'body': '',
+        }
+    };
+
     async function runPythonCode() {
 
         const timeout = async (ms: any) => new Promise(res => setTimeout(res, ms));
@@ -34,15 +55,19 @@ const CodeEditor = (props: Props) => {
         }
 
         const runner = new BrythonRunner({
+            onFileUpdate(filename: any, data: any) {
+                files[filename].type = data.type;
+                files[filename].body = data.body;
+            },
             stdout: {
                 write(content: string) {
-                    setCodeOutput(`${codeOutput}${content}\n`)
+                    //setCodeOutput(`${codeOutput}${content}\n`)
                 },
                 flush() { },
             },
             stderr: {
                 write(content: string) {
-                    setCodeOutput(`${codeOutput}${content}\n`)
+                    //setCodeOutput(`${codeOutput}${content}\n`)
                 },
                 flush() { },
             },
@@ -55,20 +80,27 @@ const CodeEditor = (props: Props) => {
             }
         });
 
-        await runner.runCode(currentCode);
+        //await runner.runCode(currentCode);
+        files['OUTPUT_PATH'].body = "";
+        await runner.runCodeWithFiles(files['main.py'].body, files);
+        setCodeOutput(files['OUTPUT_PATH'].body);
     }
 
     async function checkPythonCode() {
         const runner = new BrythonRunner({
+            onFileUpdate(filename: any, data: any) {
+                files[filename].type = data.type;
+                files[filename].body = data.body;
+            },
             stdout: {
                 write(content: string) {
-                    currentOutput += content.trim();
+                    // currentOutput += content.trim();
                 },
                 flush() { },
             },
             stderr: {
                 write(content: string) {
-                    currentOutput += content.trim();
+                    // currentOutput += content.trim();
                 },
                 flush() { },
             },
@@ -79,9 +111,8 @@ const CodeEditor = (props: Props) => {
             }
         });
 
-        const solutions: Array<Solution> = await ApiService.getSolutionsById(props.id);
+        const solutions: Array<Solution> = await ApiService.getSolutionsById(props.problem.id);
 
-        let currentOutput = "";
         let input: Array<string> = [];
         let inputIdx = 0;
         let successfull = true;
@@ -89,10 +120,10 @@ const CodeEditor = (props: Props) => {
         for (let solution of solutions) {
             input = solution.test.split(' ');
             inputIdx = 0;
-            currentOutput = "";
-            await runner.runCode(currentCode);
+            files['OUTPUT_PATH'].body = "";
 
-            if (currentOutput !== solution.answer) {
+            await runner.runCodeWithFiles(files['main.py'].body, files);
+            if (files['OUTPUT_PATH'].body !== solution.answer) {
                 successfull = false;
                 break;
             }
@@ -100,9 +131,6 @@ const CodeEditor = (props: Props) => {
 
         setIsCorrect(successfull ? "yes" : "no");
     }
-
-    let currentCode = "";
-    let currentInput = "";
 
     return (
         <Container>
@@ -115,7 +143,8 @@ const CodeEditor = (props: Props) => {
                         color="primary"
                         inputProps={{ className: classes.codeEditorProps }}
                         className={classes.codeEditorUserCode}
-                        onChange={(e) => currentCode = e.target.value}
+                        onChange={(e) => files['main.py'].body = e.target.value}
+                        defaultValue={props.problem.default_code}
                     />
                 </Grid>
                 <Grid item className={classes.codeEditorRightPanel}>
