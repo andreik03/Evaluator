@@ -2,7 +2,6 @@ import { Divider, Grid, Paper, Typography } from "@material-ui/core";
 import { Problem } from "../models/problem.model";
 import { useStyles } from "./styles/problem-description.style";
 
-
 type Props = {
     problem: Problem;
 }

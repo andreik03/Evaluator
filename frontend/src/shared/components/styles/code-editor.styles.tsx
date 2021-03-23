@@ -19,12 +19,13 @@ export const useStyles = makeStyles((theme) => ({
     },
 
     codeEditorProps: {
+        tabSize: 4,
         color: "#e4e2de",
         fontSize: "17px",
         fontFamily: "SourceCodePro, monospace",
     },
 
-    codeEditonButton: {
+    codeEditorButton: {
         background: "#ff941a",
         color: "#e4e2de",
         fontWeight: "bold",

@@ -1,11 +1,15 @@
 import { Button, Container, Grid, TextField, Typography } from "@material-ui/core";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import useScript from "../hooks/useScript";
 import { Solution } from "../models/solution.model";
 import { useStyles } from "./styles/code-editor.styles";
 import ApiService from "../services/api-service";
-import React from "react";
 import { Problem } from "../models/problem.model";
+
+import AceEditor from "react-ace";
+import "ace-builds/src-noconflict/mode-python";
+import "ace-builds/src-noconflict/theme-monokai";
+import "ace-builds/src-noconflict/ext-language_tools"
 
 declare const BrythonRunner: any;
 
@@ -25,6 +29,11 @@ const CodeEditor = (props: Props) => {
     const classes = useStyles()
     const [codeOutput, setCodeOutput] = useState("");
     const [isCorrect, setIsCorrect] = useState("empty");
+    const [editorCode, setEditorCode] = useState("empty");
+
+    useEffect(() => {
+        setEditorCode(props.problem.default_code)
+    }, [props])
 
     // Brython Runner script for running integrated Python 3.9.0 in the web browser
     useScript("https://cdn.jsdelivr.net/gh/pythonpad/brython-runner/lib/brython-runner.bundle.js");
@@ -38,10 +47,6 @@ const CodeEditor = (props: Props) => {
             'type': 'text',
             'body': '',
         },
-        'main.py': {
-            'type': 'text',
-            'body': '',
-        }
     };
 
     async function runPythonCode() {
@@ -61,29 +66,29 @@ const CodeEditor = (props: Props) => {
             },
             stdout: {
                 write(content: string) {
-                    //setCodeOutput(`${codeOutput}${content}\n`)
+                    //empty
                 },
                 flush() { },
             },
             stderr: {
                 write(content: string) {
-                    //setCodeOutput(`${codeOutput}${content}\n`)
+                    errors = content;
                 },
                 flush() { },
             },
             stdin: {
                 async readline() {
-                    // setCodeOutput(`${codeOutput}Waiting on input...\n`);
                     await waitUserInput();
                     return currentInput;
                 },
             }
         });
 
-        //await runner.runCode(currentCode);
         files['OUTPUT_PATH'].body = "";
-        await runner.runCodeWithFiles(files['main.py'].body, files);
-        setCodeOutput(files['OUTPUT_PATH'].body);
+        let errors = "";
+
+        await runner.runCodeWithFiles(editorCode, files);
+        setCodeOutput(files['OUTPUT_PATH'].body + errors);
     }
 
     async function checkPythonCode() {
@@ -94,13 +99,13 @@ const CodeEditor = (props: Props) => {
             },
             stdout: {
                 write(content: string) {
-                    // currentOutput += content.trim();
+                    //empty
                 },
                 flush() { },
             },
             stderr: {
                 write(content: string) {
-                    // currentOutput += content.trim();
+                    //empty
                 },
                 flush() { },
             },
@@ -116,6 +121,8 @@ const CodeEditor = (props: Props) => {
         let input: Array<string> = [];
         let inputIdx = 0;
         let successfull = true;
+        files['main.py'].body = editorCode;
+        // files['main.py'].body = editorTextRef.current!.value;
 
         for (let solution of solutions) {
             input = solution.test.split(' ');
@@ -136,16 +143,37 @@ const CodeEditor = (props: Props) => {
         <Container>
             <Grid container className={classes.codeEditorLeftPanel}>
                 <Grid item>
-                    <TextField
+                    <AceEditor
+                        key={props.problem.id}
+                        mode="python"
+                        theme="monokai"
+                        onChange={(newCode) => setEditorCode(newCode)}
+                        name="Ace_Code_Editor"
+                        defaultValue={props.problem.default_code}
+                        fontSize={16}
+                        showPrintMargin={true}
+                        showGutter={true}
+                        highlightActiveLine={true}
+                        editorProps={{ $blockScrolling: Infinity }}
+                        setOptions={{
+                            enableBasicAutocompletion: true,
+                            enableLiveAutocompletion: true,
+                            enableSnippets: true,
+                            showLineNumbers: true,
+                        }}
+
+                    />
+                    {/* <TextField
+                        key={props.problem.id}
                         multiline
                         rows={16}
                         variant="outlined"
                         color="primary"
                         inputProps={{ className: classes.codeEditorProps }}
-                        className={classes.codeEditorUserCode}
-                        onChange={(e) => files['main.py'].body = e.target.value}
-                        defaultValue={props.problem.default_code}
-                    />
+                        className={`${classes.codeEditorUserCode} language-python`}
+                        defaultValue={editorCode}
+                        onChange={(e) => setEditorCode(e.target.value)}
+                    /> */}
                 </Grid>
                 <Grid item className={classes.codeEditorRightPanel}>
                     <TextField
@@ -170,10 +198,10 @@ const CodeEditor = (props: Props) => {
             </Grid>
             <Grid container className={classes.codeEditorButtonContainer} alignItems="center">
                 <Grid item>
-                    <Button variant="contained" className={classes.codeEditonButton} onClick={() => runPythonCode()}>Run Code</Button>
+                    <Button variant="contained" className={classes.codeEditorButton} onClick={() => runPythonCode()}>Run Code</Button>
                 </Grid>
                 <Grid item>
-                    <Button variant="contained" className={classes.codeEditonButton} onClick={() => checkPythonCode()}>Check Code</Button>
+                    <Button variant="contained" className={classes.codeEditorButton} onClick={() => checkPythonCode()}>Check Code</Button>
                 </Grid>
                 <Grid item>
                     {

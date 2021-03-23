@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { Container, Grid, Paper } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import CodeEditor from "../../shared/components/code-editor";
@@ -43,7 +42,7 @@ const ProblemPage = (props: Props) => {
     // onMount
     useEffect(() => {
         updateProblem();
-    }, [])
+    }, [props])
 
     return (
         <Container className={classes.problemContainer}>
