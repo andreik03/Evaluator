@@ -30,6 +30,7 @@ const CodeEditor = (props: Props) => {
     const [codeOutput, setCodeOutput] = useState("");
     const [isCorrect, setIsCorrect] = useState("empty");
     const [editorCode, setEditorCode] = useState("empty");
+    const [waitingOnInput, setWaitingOnInput] = useState("");
 
     useEffect(() => {
         setEditorCode(props.problem.default_code)
@@ -121,15 +122,13 @@ const CodeEditor = (props: Props) => {
         let input: Array<string> = [];
         let inputIdx = 0;
         let successfull = true;
-        files['main.py'].body = editorCode;
-        // files['main.py'].body = editorTextRef.current!.value;
 
         for (let solution of solutions) {
             input = solution.test.split(' ');
             inputIdx = 0;
             files['OUTPUT_PATH'].body = "";
 
-            await runner.runCodeWithFiles(files['main.py'].body, files);
+            await runner.runCodeWithFiles(editorCode, files);
             if (files['OUTPUT_PATH'].body !== solution.answer) {
                 successfull = false;
                 break;
@@ -140,79 +139,61 @@ const CodeEditor = (props: Props) => {
     }
 
     return (
-        <Container>
-            <Grid container className={classes.codeEditorLeftPanel}>
-                <Grid item>
-                    <AceEditor
-                        key={props.problem.id}
-                        mode="python"
-                        theme="monokai"
-                        onChange={(newCode) => setEditorCode(newCode)}
-                        name="Ace_Code_Editor"
-                        defaultValue={props.problem.default_code}
-                        fontSize={16}
-                        showPrintMargin={true}
-                        showGutter={true}
-                        highlightActiveLine={true}
-                        editorProps={{ $blockScrolling: Infinity }}
-                        setOptions={{
-                            enableBasicAutocompletion: true,
-                            enableLiveAutocompletion: true,
-                            enableSnippets: true,
-                            showLineNumbers: true,
-                        }}
-
-                    />
-                    {/* <TextField
-                        key={props.problem.id}
-                        multiline
-                        rows={16}
-                        variant="outlined"
-                        color="primary"
-                        inputProps={{ className: classes.codeEditorProps }}
-                        className={`${classes.codeEditorUserCode} language-python`}
-                        defaultValue={editorCode}
-                        onChange={(e) => setEditorCode(e.target.value)}
-                    /> */}
-                </Grid>
-                <Grid item className={classes.codeEditorRightPanel}>
-                    <TextField
-                        multiline
-                        disabled
-                        rows={13}
-                        color="primary"
-                        inputProps={{ className: classes.codeEditorProps }}
-                        className={classes.codeEditorOutput}
-                        defaultValue={codeOutput}
-                    />
-
-                    <Grid container className={classes.codeEditorInputContainer}>
-                        <TextField
-                            inputProps={{ className: classes.codeEditorProps }}
-                            className={classes.codeEditorInput}
-                            onChange={(e) => currentInput = e.target.value}
-                        />
-                        <Button variant="contained" className={classes.codeEditorButtonSend} onClick={() => next = true}>Send</Button>
-                    </Grid>
-                </Grid>
+        <Grid container className={classes.codeEditorBody} spacing={1}>
+            <Grid item className={classes.codeEditorPanelLeft}>
+                <AceEditor
+                    key={props.problem.id}
+                    mode="python"
+                    theme="monokai"
+                    onChange={(newCode) => setEditorCode(newCode)}
+                    name="Ace_Code_Editor"
+                    defaultValue={props.problem.default_code}
+                    fontSize={16}
+                    width="700px"
+                    showPrintMargin={false}
+                    showGutter={true}
+                    highlightActiveLine={true}
+                    editorProps={{ $blockScrolling: Infinity }}
+                    setOptions={{
+                        enableBasicAutocompletion: true,
+                        enableLiveAutocompletion: true,
+                        enableSnippets: true,
+                        showLineNumbers: true,
+                    }}
+                />
             </Grid>
-            <Grid container className={classes.codeEditorButtonContainer} alignItems="center">
-                <Grid item>
-                    <Button variant="contained" className={classes.codeEditorButton} onClick={() => runPythonCode()}>Run Code</Button>
+            <Grid item className={classes.codeEditorRightPanel}>
+                <TextField
+                    multiline
+                    disabled
+                    color="primary"
+                    InputProps={{ disableUnderline: true }}
+                    inputProps={{ className: classes.codeEditorOutputProps }}
+                    className={classes.codeEditorOutput}
+                    defaultValue={codeOutput}
+                />
+
+                <Grid item className={classes.codeEditorInputContainer}>
+                    <TextField
+                        InputProps={{ className: classes.codeEditorOutputProps, disableUnderline: true }}
+                        className={classes.codeEditorInputField}
+                        onChange={(e) => currentInput = e.target.value}
+                        placeholder={waitingOnInput}
+                    />
+                    <Button variant="outlined" className={classes.codeEditorButtonSend} onClick={() => next = true}>Send</Button>
                 </Grid>
-                <Grid item>
-                    <Button variant="contained" className={classes.codeEditorButton} onClick={() => checkPythonCode()}>Check Code</Button>
-                </Grid>
-                <Grid item>
+                <Grid container className={classes.codeEditorButtonsContainer} >
+                    <Button variant="outlined" className={classes.codeEditorButton} onClick={() => runPythonCode()}>Run Code</Button>
+                    <Button variant="outlined" className={classes.codeEditorButton} onClick={() => checkPythonCode()}>Check Code</Button>
                     {
                         isCorrect !== "empty" && (isCorrect === "yes" ?
-                            <Typography className={classes.codeIsCorrect}>The code is correct!</Typography>
+                            <Typography className={classes.codeIsCorrect}>Correct!</Typography>
                             :
-                            <Typography className={classes.codeIsWrong}>The code is wrong!</Typography>)
+                            <Typography className={classes.codeIsWrong}>Wrong!</Typography>)
                     }
                 </Grid>
             </Grid>
-        </Container >
+        </Grid>
     );
 }
 

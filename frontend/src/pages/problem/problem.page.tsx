@@ -55,9 +55,7 @@ const ProblemPage = (props: Props) => {
                     <ProblemDescription problem={problem} />
                 </Grid>
                 <Grid item>
-                    <Paper className={classes.problemcodeEditor}>
                         <CodeEditor problem={problem}></CodeEditor>
-                    </Paper>
                 </Grid>
             </Grid>
         </Container >

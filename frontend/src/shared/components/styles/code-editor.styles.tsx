@@ -6,37 +6,35 @@ export const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2),
     },
 
-    codeEditorLeftPanel: {
+    codeEditorBody: {
         display: "flex",
-        paddingTop: "25px",
-        margin: "0 0 20px 0",
-        justifyContent: "space-between",
+        justifyContent: "center",
     },
 
     codeEditorRightPanel: {
         display: "flex",
         flexDirection: "column",
+        flexGrow: 1,
+        maxWidth: "700px",
     },
 
-    codeEditorProps: {
-        tabSize: 4,
-        color: "#e4e2de",
+    codeEditorOutputProps: {
+        color: "white",
         fontSize: "17px",
         fontFamily: "SourceCodePro, monospace",
     },
 
     codeEditorButton: {
-        background: "#ff941a",
+        background: "#1d1d1d",
         color: "#e4e2de",
         fontWeight: "bold",
-        marginRight: "15px",
+        marginRight: "8px"
     },
 
     codeEditorOutput: {
-        justifySelf: "flex-end",
-        background: "rgb(57 72 103)",
-        width: "13vw",
+        background: "#202020",
         padding: "15px",
+        flexGrow: 1,
     },
 
     codeEditorUserCode: {
@@ -44,37 +42,44 @@ export const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
     },
 
-    codeEditorInput: {
-        paddingTop: "14px",
+    codeEditorInputField: {
+        background: "#2d2d2d",
         flexGrow: 1,
+        padding:"3px 0px 0px 10px",
     },
 
     codeEditorInputContainer: {
         display: "flex",
-        justifyContent: "space-between",
+        margin: "8px 0 8px 0",
     },
 
     codeEditorButtonSend: {
-        background: "#ff941a",
+        background: "#191919",
         color: "#e4e2de",
         fontWeight: "bold",
-        height: "30px",
         alignSelf: "flex-end",
-        marginLeft: "10px"
+        marginLeft: "6px",
     },
 
-    codeEditorButtonContainer: {
-        padding: "0 0 15px 0",
+    codeEditorButtonsContainer: {
     },
 
     codeIsCorrect: {
         color: "green",
         fontWeight: "bold",
+        justifySelf: "center",
+        alignSelf: "center",
+        marginLeft:"5px",
     },
 
     codeIsWrong: {
         color: "red",
-        fontSize: "17px",
         fontWeight: "bold",
+        justifySelf: "center",
+        alignSelf: "center",
+        marginLeft: "8px",
+    },
+    codeEditorPanelLeft: {
+
     },
 }));
