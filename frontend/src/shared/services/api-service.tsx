@@ -1,8 +1,7 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { Problem } from "../models/problem.model"
 
 const getCookie = (name: string) => {
-    let cookieValue = null;
+    let cookieValue = "";
     if (document.cookie && document.cookie !== '') {
         const cookies = document.cookie.split(';');
         for (let i = 0; i < cookies.length; i++) {
@@ -16,23 +15,35 @@ const getCookie = (name: string) => {
     }
     return cookieValue;
 }
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const csrftoken = getCookie('csrftoken');
-const uri = "http://127.0.0.1:8000/api";
+const csrftoken: string = getCookie('csrftoken');
+const baseUrl = "http://127.0.0.1:8000/api/problem";
 
 class ApiService {
-    getProblems = () => fetch(`${uri}/problem-list/`, { method: "GET" })
+    getProblems = () => fetch(`${baseUrl}/list/`, { method: "GET" })
         .then(res => res.json());
 
     getProblemById(id: number) {
-        return fetch(`${uri}/problem-details/${id}`, { method: "GET" })
+        return fetch(`${baseUrl}/details/${id}`, { method: "GET" })
             .then(res => res.json());
-    }
+    };
 
     getSolutionsById(id: number) {
-        return fetch(`${uri}/solution-list/${id}`, { method: "GET" })
-            .then(res => res.json())
-    }
+        return fetch(`${baseUrl}/list/${id}`, { method: "GET" })
+            .then(res => res.json());
+    };
+
+    postProblem(problem: Problem) {
+        console.log(problem);
+        return fetch(`${baseUrl}/create/`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": csrftoken,
+                },
+                body: JSON.stringify({ ...problem }),
+            }).then(res => res.json());
+    };
 }
 
 export default new ApiService();

@@ -35,6 +35,7 @@ export const useStyles = makeStyles((theme) => ({
         background: "#202020",
         padding: "15px",
         flexGrow: 1,
+        minHeight: "200px"
     },
 
     codeEditorUserCode: {

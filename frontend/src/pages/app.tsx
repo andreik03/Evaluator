@@ -11,7 +11,7 @@ const App = () => {
         <title>Evaluator</title>
       </Helmet>
       <Route exact path="/" component={ProblemsPage} />
-      <Route exact path="/problem-details/:problemId" component={ProblemPage} />
+      <Route exact path="/problem/details/:problemId" component={ProblemPage} />
     </div>
   );
 }

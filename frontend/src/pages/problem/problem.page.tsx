@@ -1,4 +1,4 @@
-import { Container, Grid, Paper } from "@material-ui/core";
+import { Container, Grid } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import CodeEditor from "../../shared/components/code-editor";
 import ProblemDescription from "../../shared/components/problem-description";
@@ -14,7 +14,7 @@ type Props = {
     }
 }
 
-const blankProblem: Problem = {
+const emptyProblem: Problem = {
     id: 0,
     title: "",
     statement: "",
@@ -31,7 +31,7 @@ const ProblemPage = (props: Props) => {
 
     const classes = useStyles();
 
-    const [problem, setProblem] = useState(blankProblem)
+    const [problem, setProblem] = useState(emptyProblem)
 
     const updateProblem = () => {
         ApiService.getProblemById(props.match.params.problemId)

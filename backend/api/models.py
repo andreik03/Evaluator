@@ -12,7 +12,7 @@ class Problem(models.Model):
     output_data = models.CharField(max_length=200)
     restrictions = models.CharField(max_length=200, null=True, blank=True)
     example = models.CharField(max_length=200)
-    pub_date = models.DateField("date published", default=timezone.now)
+    pub_date = models.DateField("date published", auto_now_add=True)
     default_code = models.CharField(max_length=800, default="")
 
     def __str__(self):

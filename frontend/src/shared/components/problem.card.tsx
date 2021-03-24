@@ -12,7 +12,7 @@ const ProblemCard = (props: Props) => {
 
     return (
         <Card className={classes.card} >
-            <CardActionArea className={classes.cardActionArea} href={`/problem-details/${props.problem.id}`}>
+            <CardActionArea className={classes.cardActionArea} href={`/problem/details/${props.problem.id}`}>
                 <CardContent className={classes.cardContent}>
                     <Typography className={classes.cardTitle} variant="h5">
                         {props.problem.title}

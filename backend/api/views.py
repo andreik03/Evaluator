@@ -10,12 +10,12 @@ from rest_framework.response import Response
 @api_view(["GET"])
 def apiOverview(request):
     api_urls = {
-        "List problems": "/problem-list/",
-        "View problem": "/problem-details/<str:pk>/",
-        "Create problem": "/problem-create/",
-        "Update problem": "/problem-update/<str:pk>/",
-        "Delete problem": "/problem-delete/<str:pk>/",
-        "List solutions": "/solution-list/<str:pk>/",
+        "List problems": "/problem/list/",
+        "View problem": "/problem/details/<str:pk>/",
+        "Create problem": "/problem/create/",
+        "Update problem": "/problem/update/<str:pk>/",
+        "Delete problem": "/problem/delete/<str:pk>/",
+        "List solutions": "/solution/list/<str:pk>/",
     }
 
     return Response(api_urls)
@@ -38,7 +38,8 @@ def problemDetail(request, pk):
 @api_view(["POST"])
 def problemCreate(request):
     serializer = ProblemSerializer(data=request.data)
-
+    print(serializer)
+    print(serializer.is_valid())
     if serializer.is_valid():
         serializer.save()
 

@@ -1,4 +1,4 @@
-import { Button, Container, Grid, TextField, Typography } from "@material-ui/core";
+import { Button, Grid, TextField, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import useScript from "../hooks/useScript";
 import { Solution } from "../models/solution.model";
@@ -30,7 +30,6 @@ const CodeEditor = (props: Props) => {
     const [codeOutput, setCodeOutput] = useState("");
     const [isCorrect, setIsCorrect] = useState("empty");
     const [editorCode, setEditorCode] = useState("empty");
-    const [waitingOnInput, setWaitingOnInput] = useState("");
 
     useEffect(() => {
         setEditorCode(props.problem.default_code)
@@ -178,7 +177,6 @@ const CodeEditor = (props: Props) => {
                         InputProps={{ className: classes.codeEditorOutputProps, disableUnderline: true }}
                         className={classes.codeEditorInputField}
                         onChange={(e) => currentInput = e.target.value}
-                        placeholder={waitingOnInput}
                     />
                     <Button variant="outlined" className={classes.codeEditorButtonSend} onClick={() => next = true}>Send</Button>
                 </Grid>
