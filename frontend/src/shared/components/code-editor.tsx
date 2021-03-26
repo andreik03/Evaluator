@@ -9,7 +9,8 @@ import { Problem } from "../models/problem.model";
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-python";
 import "ace-builds/src-noconflict/theme-monokai";
-import "ace-builds/src-noconflict/ext-language_tools"
+import "ace-builds/src-noconflict/ext-language_tools";
+import ace from "ace-builds"
 
 declare const BrythonRunner: any;
 
@@ -30,6 +31,13 @@ const CodeEditor = (props: Props) => {
     const [codeOutput, setCodeOutput] = useState("");
     const [isCorrect, setIsCorrect] = useState("empty");
     const [editorCode, setEditorCode] = useState("empty");
+
+
+    // settings for Ace to webpack
+    ace.config.set(
+        "basePath",
+        "https://cdn.jsdelivr.net/npm/ace-builds@1.4.12/src-noconflict/"
+    )
 
     useEffect(() => {
         setEditorCode(props.problem.default_code)
@@ -63,22 +71,26 @@ const CodeEditor = (props: Props) => {
             onFileUpdate(filename: any, data: any) {
                 files[filename].type = data.type;
                 files[filename].body = data.body;
+                console.log(files)
             },
             stdout: {
                 write(content: string) {
                     //empty
+                    console.log(content)
                 },
                 flush() { },
             },
             stderr: {
                 write(content: string) {
-                    errors = content;
+                    console.log(content)
+                    errors += content;
                 },
                 flush() { },
             },
             stdin: {
                 async readline() {
                     await waitUserInput();
+                    console.log(currentInput);
                     return currentInput;
                 },
             }
@@ -111,19 +123,21 @@ const CodeEditor = (props: Props) => {
             },
             stdin: {
                 async readline() {
-                    return input[inputIdx++];
+                    console.log(inputs[inputIdx])
+                    return inputs[inputIdx++];
                 },
             }
         });
 
         const solutions: Array<Solution> = await ApiService.getSolutionsById(props.problem.id);
 
-        let input: Array<string> = [];
+        let inputs: Array<string> = [];
         let inputIdx = 0;
         let successfull = true;
 
         for (let solution of solutions) {
-            input = solution.test.split(' ');
+            inputs = solution.test.split('\n');
+            console.log(inputs)
             inputIdx = 0;
             files['OUTPUT_PATH'].body = "";
 

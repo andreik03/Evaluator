@@ -27,4 +27,8 @@ export const useStyles = makeStyles((theme) => ({
         background: "#2b2e2f",
     },
 
+    problemSubtitleBody: {
+        whiteSpace: "pre-line",
+    },
+
 }));

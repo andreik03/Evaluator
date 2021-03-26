@@ -14,7 +14,7 @@ export const useStyles = makeStyles((theme) => ({
 
     createProblemBtn:{
         color:"white",
-        background:"#202020",
+        background:"#333333",
     },
 
 }));

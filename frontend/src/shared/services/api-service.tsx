@@ -16,25 +16,25 @@ const getCookie = (name: string) => {
     return cookieValue;
 }
 const csrftoken: string = getCookie('csrftoken');
-const baseUrl = "http://127.0.0.1:8000/api/problem";
+const baseUrl = "http://127.0.0.1:8000/api";
 
 class ApiService {
-    getProblems = () => fetch(`${baseUrl}/list/`, { method: "GET" })
+    getProblems = () => fetch(`${baseUrl}/problem/list/`, { method: "GET" })
         .then(res => res.json());
 
     getProblemById(id: number) {
-        return fetch(`${baseUrl}/details/${id}`, { method: "GET" })
+        return fetch(`${baseUrl}/problem/details/${id}`, { method: "GET" })
             .then(res => res.json());
     };
 
     getSolutionsById(id: number) {
-        return fetch(`${baseUrl}/list/${id}`, { method: "GET" })
+        return fetch(`${baseUrl}/solution/list/${id}`, { method: "GET" })
             .then(res => res.json());
     };
 
     postProblem(problem: Problem) {
         console.log(problem);
-        return fetch(`${baseUrl}/create/`,
+        return fetch(`${baseUrl}/problem/create/`,
             {
                 method: "POST",
                 headers: {

@@ -26,23 +26,23 @@ export const ProblemDescription = (props: Props) => {
                 >
                     <Grid item className={classes.problemItem}>
                         <Typography className={classes.problemSubtitle}>Demand</Typography>
-                        <Typography>{props.problem.demand}</Typography>
+                        <Typography className={classes.problemSubtitleBody}>{props.problem.demand}</Typography>
                     </Grid>
                     <Grid item className={classes.problemItem}>
                         <Typography className={classes.problemSubtitle}>Input data</Typography>
-                        <Typography>{props.problem.input_data}</Typography>
+                        <Typography className={classes.problemSubtitleBody}>{props.problem.input_data}</Typography>
                     </Grid>
                     <Grid item className={classes.problemItem}>
                         <Typography className={classes.problemSubtitle}>Output data</Typography>
-                        <Typography>{props.problem.output_data}</Typography>
+                        <Typography className={classes.problemSubtitleBody}>{props.problem.output_data}</Typography>
                     </Grid>
                     <Grid item className={classes.problemItem}>
                         <Typography className={classes.problemSubtitle}>Rectrictions</Typography>
-                        <Typography>{props.problem.restrictions}</Typography>
+                        <Typography className={classes.problemSubtitleBody}>{props.problem.restrictions}</Typography>
                     </Grid>
                     <Grid item className={classes.problemItem}>
                         <Typography className={classes.problemSubtitle}>Example</Typography>
-                        <Typography>{props.problem.example}</Typography>
+                        <Typography className={classes.problemSubtitleBody}>{props.problem.example}</Typography>
                     </Grid>
 
                 </Grid>

@@ -5,7 +5,7 @@ import ApiService from "../../shared/services/api-service";
 import ProblemCard from "../../shared/components/problem.card";
 
 import { useStyles } from "./problems.page.styles";
-import CreateProblemBtn from "../../shared/components/create-problem-btn";
+import CreateProblemBtn from "../../shared/components/create-problem.btn";
 
 const emptyProblems: Array<Problem> = []
 

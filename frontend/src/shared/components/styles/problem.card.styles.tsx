@@ -32,5 +32,10 @@ export const useStyles = makeStyles((theme) => ({
         color: "#69a6d5",
         fontWeight: "bold",
     },
-    problemDemand: {}
+    problemDemand: {
+        display: 'box',
+        lineClamp: 2,
+        boxOrient: 'vertical',
+        overflow: 'hidden',
+    }
 }));

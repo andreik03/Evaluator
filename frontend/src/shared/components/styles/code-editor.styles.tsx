@@ -25,7 +25,7 @@ export const useStyles = makeStyles((theme) => ({
     },
 
     codeEditorButton: {
-        background: "#1d1d1d",
+        background: "#333333",
         color: "#e4e2de",
         fontWeight: "bold",
         marginRight: "8px"
@@ -55,7 +55,7 @@ export const useStyles = makeStyles((theme) => ({
     },
 
     codeEditorButtonSend: {
-        background: "#191919",
+        background: "#3f4344",
         color: "#e4e2de",
         fontWeight: "bold",
         alignSelf: "flex-end",
