@@ -31,7 +31,7 @@ const CodeEditor = (props: Props) => {
     const [codeOutput, setCodeOutput] = useState("");
     const [isCorrect, setIsCorrect] = useState("empty");
     const [editorCode, setEditorCode] = useState("empty");
-
+    const [placeHolderInput, setPlaceHolderInput] = useState("")
 
     // settings for Ace to webpack
     ace.config.set(
@@ -90,7 +90,6 @@ const CodeEditor = (props: Props) => {
             stdin: {
                 async readline() {
                     await waitUserInput();
-                    console.log(currentInput);
                     return currentInput;
                 },
             }
@@ -190,6 +189,7 @@ const CodeEditor = (props: Props) => {
                     <TextField
                         InputProps={{ className: classes.codeEditorOutputProps, disableUnderline: true }}
                         className={classes.codeEditorInputField}
+                        placeholder={placeHolderInput}
                         onChange={(e) => currentInput = e.target.value}
                     />
                     <Button variant="outlined" className={classes.codeEditorButtonSend} onClick={() => next = true}>Send</Button>
