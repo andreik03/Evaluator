@@ -10,7 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import useStyles from './log-in.page.styles';
+import useStyles from './login.page.styles';
 
 const LogInPage = () => {
     const classes = useStyles();
@@ -62,12 +62,12 @@ const LogInPage = () => {
                     </Button>
                     <Grid container>
                         <Grid item xs>
-                            <Link href="/log-in" variant="body2">
+                            <Link href="#" variant="body2">
                                 Forgot password?
                             </Link>
                         </Grid>
                         <Grid item>
-                            <Link href="/sign-up" variant="body2">
+                            <Link href="/signup" variant="body2">
                                 {"Don't have an account? Sign Up"}
                             </Link>
                         </Grid>

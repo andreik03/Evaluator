@@ -10,7 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
-import useStyles from './sign-up.page.styles';
+import useStyles from './signup.page.styles';
 
 
 export default function SignUpPage() {
@@ -86,7 +86,7 @@ export default function SignUpPage() {
                     </Button>
                     <Grid container justify="flex-end">
                         <Grid item>
-                            <Link href="/log-in" variant="body2">
+                            <Link href="/login" variant="body2">
                                 Already have an account? Sign in
                             </Link>
                         </Grid>
