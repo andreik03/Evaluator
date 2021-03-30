@@ -1,4 +1,5 @@
 import { Problem } from "../models/problem.model"
+import { User } from "../models/user.model";
 
 const getCookie = (name: string) => {
     let cookieValue = "";
@@ -16,25 +17,24 @@ const getCookie = (name: string) => {
     return cookieValue;
 }
 const csrftoken: string = getCookie('csrftoken');
-const baseUrl = "http://127.0.0.1:8000/api";
+const baseUrl = "http://127.0.0.1:8000";
 
 class ApiService {
-    getProblems = () => fetch(`${baseUrl}/problem/list/`, { method: "GET" })
+    getProblems = () => fetch(`${baseUrl}/api/problem/list/`, { method: "GET" })
         .then(res => res.json());
 
     getProblemById(id: number) {
-        return fetch(`${baseUrl}/problem/details/${id}`, { method: "GET" })
+        return fetch(`${baseUrl}/api/problem/details/${id}`, { method: "GET" })
             .then(res => res.json());
     };
 
     getSolutionsById(id: number) {
-        return fetch(`${baseUrl}/solution/list/${id}`, { method: "GET" })
+        return fetch(`${baseUrl}/api/solution/list/${id}`, { method: "GET" })
             .then(res => res.json());
     };
 
     postProblem(problem: Problem) {
-        console.log(problem);
-        return fetch(`${baseUrl}/problem/create/`,
+        return fetch(`${baseUrl}/api/problem/create/`,
             {
                 method: "POST",
                 headers: {
@@ -42,6 +42,19 @@ class ApiService {
                     "X-CSRFToken": csrftoken,
                 },
                 body: JSON.stringify({ ...problem }),
+            }).then(res => res.json());
+    };
+
+    registerUser(user: User) {
+        console.log(JSON.stringify({ ...user }))
+        return fetch(`${baseUrl}/accounts/register`,
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": csrftoken,
+                },
+                body: JSON.stringify({ ...user }),
             }).then(res => res.json());
     };
 }

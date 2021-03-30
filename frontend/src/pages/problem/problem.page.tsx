@@ -33,16 +33,11 @@ const ProblemPage = (props: Props) => {
 
     const [problem, setProblem] = useState(emptyProblem)
 
-    const updateProblem = () => {
-        ApiService.getProblemById(props.match.params.problemId)
-            .then((problem: Problem) => setProblem(problem));
-    };
-
-
     // onMount
     useEffect(() => {
-        updateProblem();
-    }, [props])
+        ApiService.getProblemById(props.match.params.problemId)
+            .then((problem: Problem) => setProblem(problem));
+    }, [props.match.params.problemId, setProblem])
 
     return (
         <Container className={classes.problemContainer}>
@@ -55,7 +50,7 @@ const ProblemPage = (props: Props) => {
                     <ProblemDescription problem={problem} />
                 </Grid>
                 <Grid item>
-                        <CodeEditor problem={problem}></CodeEditor>
+                    <CodeEditor problem={problem}></CodeEditor>
                 </Grid>
             </Grid>
         </Container >
