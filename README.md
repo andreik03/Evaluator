@@ -43,7 +43,10 @@ They run in the browser, meaning that security is not concern and the execution 
 [Anvil](https://anvil.works/) - python 2.7(?), website builder, pay to remove sponsor header
 
 ## Conclusion
-Will maybe try Brython, and later switch to Docker.
+Currently using Brython, will switch to Docker.
+
+# Other
+Using [React-Ace](https://github.com/securingsincity/react-ace/tree/master) for a code editor with multiple features (syntax highlighting, autocompletion, themes).
 
 # Contributing
 Pull requests, ideas, anything is welcome.
