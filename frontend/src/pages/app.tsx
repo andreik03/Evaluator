@@ -19,7 +19,7 @@ const App = () => {
       <Route exact path="/problem/details/:problemId" component={ProblemPage} />
       <Route exact path="/register" component={RegisterPage} />
       <Route exact path="/login" component={LogInPage} />
-      <Route exact path="/logout" component={LogOutPage}/>
+      <Route exact path="/logout" component={LogOutPage} />
     </div>
   );
 }

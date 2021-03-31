@@ -24,15 +24,6 @@ const ProblemsPage = () => {
     return (
         <>
             <Container>
-                {/* <Grid container className={classes.heading} justify="space-between" alignItems="center">
-                    <Typography variant="subtitle1" className={classes.headingTitle}>
-                        Welcome to problems page!
-                    </Typography>
-                    <Grid item className={classes.headingButtonContainer}>
-                        <CreateProblemBtn />
-                    </Grid>
-                </Grid> */}
-
                 <Grid className={classes.problemsGrid}>
                     {
                         problems.map((problem) =>
