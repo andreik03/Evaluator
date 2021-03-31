@@ -47,37 +47,43 @@ function Header() {
                             Evaluator
                         </Link>
                     </Typography>
-                    <nav>
-                        <Link
-                            color="textPrimary"
-                            href="#"
-                            className={classes.link}
-                            component={NavLink}
-                            to="/register"
-                        >
-                            Register
-                        </Link>
-                    </nav>
-                    <Button
-                        href="#"
-                        color="primary"
-                        variant="outlined"
-                        className={classes.link}
-                        component={NavLink}
-                        to="/login"
-                    >
-                        Login
-                    </Button>
-                    <Button
-                        href="#"
-                        color="primary"
-                        variant="outlined"
-                        className={classes.link}
-                        component={NavLink}
-                        to="/logout"
-                    >
-                        Logout
-                    </Button>
+                    {
+                        localStorage.getItem('access_token') === null ?
+                            <>
+                                <nav>
+                                    <Link
+                                        color="textPrimary"
+                                        href="#"
+                                        className={classes.link}
+                                        component={NavLink}
+                                        to="/register"
+                                    >
+                                        Register
+                                    </Link>
+                                </nav>
+                                <Button
+                                    href="#"
+                                    color="primary"
+                                    variant="outlined"
+                                    className={classes.link}
+                                    component={NavLink}
+                                    to="/login"
+                                >
+                                    Login
+                                </Button>
+                            </>
+                            :
+                            <Button
+                                href="#"
+                                color="primary"
+                                variant="outlined"
+                                className={classes.link}
+                                component={NavLink}
+                                to="/logout"
+                            >
+                                Logout
+                            </Button>
+                    }
                 </Toolbar>
             </AppBar>
         </React.Fragment>

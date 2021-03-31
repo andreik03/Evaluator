@@ -10,7 +10,7 @@ import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-python";
 import "ace-builds/src-noconflict/theme-monokai";
 import "ace-builds/src-noconflict/ext-language_tools";
-import ace from "ace-builds"
+import ace from "ace-builds";
 
 declare const BrythonRunner: any;
 
@@ -31,9 +31,9 @@ const CodeEditor = (props: Props) => {
     const [codeOutput, setCodeOutput] = useState("");
     const [isCorrect, setIsCorrect] = useState("empty");
     const [editorCode, setEditorCode] = useState("empty");
-    const [placeHolderInput, setPlaceHolderInput] = useState("")
+    const [placeHolderInput, setPlaceHolderInput] = useState("");
 
-    // settings for Ace to webpack
+    // settings for Ace to use webpack
     ace.config.set(
         "basePath",
         "https://cdn.jsdelivr.net/npm/ace-builds@1.4.12/src-noconflict/"

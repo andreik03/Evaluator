@@ -6,6 +6,7 @@ import { Helmet } from 'react-helmet';
 import RegisterPage from './register/register.page';
 import LogInPage from './login/login.page';
 import Header from '../shared/components/header';
+import LogOutPage from './logout/logout.page';
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
       <Route exact path="/problem/details/:problemId" component={ProblemPage} />
       <Route exact path="/register" component={RegisterPage} />
       <Route exact path="/login" component={LogInPage} />
+      <Route exact path="/logout" component={LogOutPage}/>
     </div>
   );
 }
