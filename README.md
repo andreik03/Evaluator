@@ -19,28 +19,28 @@ exec, eval: too unsafe, takes too much time to implement something decent
 
 To check the realiability of the sandbox, check [this](https://book.hacktricks.xyz/misc/basic-python/bypass-python-sandboxes)
 
-[pysandbox](https://github.com/vstinner/pysandbox) - deprecated
+1. [pysandbox](https://github.com/vstinner/pysandbox) - deprecated
 
-[PyPy sandbox](https://doc.pypy.org/en/latest/sandbox.html) - unmaintained
+1. [PyPy sandbox](https://doc.pypy.org/en/latest/sandbox.html) - unmaintained
 
-[Docker](https://www.docker.com/) - very good idea, hard to set up, could use multiple coding languages
+1. [Docker](https://www.docker.com/) - very good idea, hard to set up, could use multiple coding languages
 
-[epicbox](https://pypi.org/project/epicbox/) really good combination with Docker
+1. [epicbox](https://pypi.org/project/epicbox/) really good combination with Docker
 
 ## Python in the browser
 [Really good article about the available options](https://anvil.works/blog/python-in-the-browser-talk)
 
 They run in the browser, meaning that security is not concern and the execution is handled on the user's machine.
 
-[PyPyJS](https://github.com/pypyjs) - python 2.7, unmaintained, 12mb script import
+1. [PyPyJS](https://github.com/pypyjs) - python 2.7, unmaintained, 12mb script import
 
-[Brython](https://brython.info/) - python 3.9.0, no imports, good idea
+1. [Brython](https://brython.info/) - python 3.9.0, no imports, good idea
 
-[Brython Runner](https://www.npmjs.com/package/brython-runner) - Brython module, great idea
+1. [Brython Runner](https://www.npmjs.com/package/brython-runner) - Brython module, great idea
 
-[Skulpt](http://skulpt.org/) - python 2.7, limited imports(?)
+1. [Skulpt](http://skulpt.org/) - python 2.7, limited imports(?)
 
-[Anvil](https://anvil.works/) - python 2.7(?), website builder, pay to remove sponsor header
+1. [Anvil](https://anvil.works/) - python 2.7(?), website builder, pay to remove sponsor header
 
 ## Conclusion
 Currently using Brython, will switch to Docker.
